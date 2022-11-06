@@ -1,5 +1,7 @@
 import { useState } from "react";
 import styles from "../styles/OrderDetail.module.css";
+import Link from "next/link";
+
 
 const OrderDetail = ({ total, createOrder }) => {
   const [customer, setCustomer] = useState("");
