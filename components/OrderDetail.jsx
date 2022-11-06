@@ -12,7 +12,7 @@ const OrderDetail = ({ total, createOrder }) => {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <h1 className={styles.title}>You will pay $12 after delivery.</h1>
+        <h1 className={styles.title}>You will pay Rs{total} after delivery.</h1>
         <div className={styles.item}>
           <label className={styles.label}>Name Surname</label>
           <input
@@ -43,6 +43,9 @@ const OrderDetail = ({ total, createOrder }) => {
         <button className={styles.button} onClick={handleClick}>
           Order
         </button>
+        <Link href="/" passHref>
+            <button className={styles.button}>Cancel</button>
+          </Link>
       </div>
     </div>
   );
