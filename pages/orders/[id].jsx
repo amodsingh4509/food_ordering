@@ -2,7 +2,7 @@ import styles from "../../styles/Order.module.css";
 import Image from "next/image";
 import axios from "axios";
 
-const Order = ({ order }) => {
+const Order = ({ order ,orderlist}) => {
   const status = order.status;
 
   const statusClass = (index) => {
@@ -32,11 +32,61 @@ const Order = ({ order }) => {
                 <span className={styles.address}>{order.address}</span>
               </td>
               <td>
-                <span className={styles.total}>Rs{order.total}</span>
+                <span className={styles.total}>${order.total}</span>
               </td>
             </tr>
           </table>
         </div>
+        <h2>Order Details</h2>
+        <table className={styles.table}>
+          <tbody>
+            <tr className={styles.trTitle}>
+              <th>Product</th>
+              <th>Name</th>
+              <th>Extras</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+            </tr>
+          </tbody>
+          <tbody>
+            {orderlist.map((product) => (
+              <tr className={styles.tr} key={product._id}>
+                <td>
+                  <div className={styles.imgContainer}>
+                    <Image
+                      src={product.productimg}
+                      layout="fill"
+                      objectFit="cover"
+                      alt=""
+                    />
+                  </div>
+                </td>
+                <td>
+                  <span className={styles.name}>{product.name}</span>
+                </td>
+                <td>
+                  <span className={styles.extras}>
+                    {product.extra.map((extras) => (
+                      <span key={extras._id}>{extras}, </span>
+                    ))}
+                  </span>
+                </td>
+                <td>
+                  <span className={styles.price}>${product.price}</span>
+                </td>
+                <td>
+                  <span className={styles.quantity}>{product.quantity}</span>
+                </td>
+                <td>
+                  <span className={styles.total}>
+                    ${product.price * product.quantity}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
         <div className={styles.row}>
           <div className={statusClass(0)}>
             <Image src="/img/paid.png" width={30} height={30} alt="" />
@@ -96,16 +146,16 @@ const Order = ({ order }) => {
         <div className={styles.wrapper}>
           <h2 className={styles.title}>CART TOTAL</h2>
           <div className={styles.totalText}>
-            <b className={styles.totalTextTitle}>Subtotal:</b>Rs{order.total}
+            <b className={styles.totalTextTitle}>Subtotal:</b>Rs {order.total}
           </div>
           <div className={styles.totalText}>
-            <b className={styles.totalTextTitle}>Discount:</b>Rs0.00
+            <b className={styles.totalTextTitle}>Discount:</b>Rs 0.00
           </div>
           <div className={styles.totalText}>
-            <b className={styles.totalTextTitle}>Total:</b>Rs{order.total}
+            <b className={styles.totalTextTitle}>Total:</b>Rs {order.total}
           </div>
           <button disabled className={styles.button}>
-            PAID
+            {(order.method==1)?"Paid":"Cash on Delivery"}
           </button>
         </div>
       </div>
@@ -115,8 +165,10 @@ const Order = ({ order }) => {
 
 export const getServerSideProps = async ({ params }) => {
   const res = await axios.get(`https://food-ordering-gold.vercel.app/api/orders/${params.id}`);
+  const res2 = await axios.get(`https://food-ordering-gold.vercel.app/api/orderlists/${params.id}`);
+  console.log(res2)
   return {
-    props: { order: res.data },
+    props: { order: res.data,orderlist:res2.data },
   };
 };
 

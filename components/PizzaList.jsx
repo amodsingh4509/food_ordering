@@ -6,9 +6,11 @@ const PizzaList = ({ pizzaList }) => {
     <div className={styles.container}>
       <h1 className={styles.title}>THE BEST PIZZA IN TOWN</h1>
       <p className={styles.desc}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut blandit arcu
-        in pretium molestie. Interdum et malesuada fames acme. Lorem ipsum dolor
-        sit amet, consectetur adipiscing elit.
+      Pizza is a dish of Italian origin consisting of a usually round,
+       flat base of leavened wheat-based dough topped with tomatoes,
+        cheese, and often various other ingredients, which is then baked 
+        at a high temperature, traditionally in a wood-fired oven.
+         A small pizza is sometimes called a pizzetta.
       </p>
       <div className={styles.wrapper}>
         {pizzaList.map((pizza) => (
