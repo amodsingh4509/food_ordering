@@ -32,7 +32,7 @@ const Order = ({ order ,orderlist}) => {
                 <span className={styles.address}>{order.address}</span>
               </td>
               <td>
-                <span className={styles.total}>${order.total}</span>
+                <span className={styles.total}>Rs {order.total}</span>
               </td>
             </tr>
           </table>
@@ -73,14 +73,14 @@ const Order = ({ order ,orderlist}) => {
                   </span>
                 </td>
                 <td>
-                  <span className={styles.price}>${product.price}</span>
+                  <span className={styles.price}>Rs {product.price}</span>
                 </td>
                 <td>
                   <span className={styles.quantity}>{product.quantity}</span>
                 </td>
                 <td>
                   <span className={styles.total}>
-                    ${product.price * product.quantity}
+                    Rs {product.price * product.quantity}
                   </span>
                 </td>
               </tr>
