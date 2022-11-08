@@ -106,7 +106,7 @@ const Cart = () => {
     cartdata.method = type;
     console.log(cartdata);
     try {
-      const res = await axios.post("https://food-ordering-gold.vercel.app/api/orders", cartdata);
+      const res =  axios.post("https://food-ordering-gold.vercel.app/api/orders", cartdata);
       cart.products.map(async (product) => {
         orderid = res.data._id;
         name = product.title;
@@ -127,7 +127,7 @@ const Cart = () => {
         extra = [];
 
         try {
-          const res1 = await axios.post("https://food-ordering-gold.vercel.app/api/orderlists", listitem);
+          const res1 =  axios.post("https://food-ordering-gold.vercel.app/api/orderlists", listitem);
 
         } catch (error) {
           console.log(error)
