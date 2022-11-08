@@ -11,10 +11,13 @@ const Login = () => {
 
   const handleClick = async () => {
     try {
-      await axios.post("https://food-ordering-gold.vercel.app/api/login", {
-        username,
-        password,
-      });
+
+        await axios.post("https://food-ordering-gold.vercel.app/api/login", {
+          username,
+          password,
+        });
+      
+
       router.push("/admin");
     } catch (err) {
       setError(true);

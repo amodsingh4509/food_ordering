@@ -220,7 +220,7 @@ const Cart = () => {
             <div className={styles.paymentMethods}>
               <button
                 className={styles.payButton}
-                onClick={() => { saveorder(0) }}
+                onClick={() => { saveorder(0);alert("Order Placed.") }}
               >
                 CASH ON DELIVERY
               </button>

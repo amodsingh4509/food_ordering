@@ -1,7 +1,5 @@
 import { useState } from "react";
 import styles from "../styles/OrderDetail.module.css";
-import Link from "next/link";
-
 
 const OrderDetail = ({ total, createOrder }) => {
   const [customer, setCustomer] = useState("");
@@ -14,7 +12,7 @@ const OrderDetail = ({ total, createOrder }) => {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <h1 className={styles.title}>Your Order Total is Rs{total} .</h1>
+        <h1 className={styles.title}>You have to pay Rs {total}.</h1>
         <div className={styles.item}>
           <label className={styles.label}>Name Surname</label>
           <input

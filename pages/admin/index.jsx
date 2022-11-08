@@ -1,12 +1,15 @@
+import { createNextState } from "@reduxjs/toolkit";
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import styles from "../../styles/Admin.module.css";
 
 const Index = ({ orders, products }) => {
   const [pizzaList, setPizzaList] = useState(products);
   const [orderList, setOrderList] = useState(orders);
-  const status = ["preparing", "on the way", "delivered"];
+  var nextstatus=false;
+  const status = ["Preparing", "On the way", "Delivered"];
 
   const handleDelete = async (id) => {
     console.log(id);
@@ -63,9 +66,13 @@ const Index = ({ orders, products }) => {
                     alt=""
                   />
                 </td>
-                <td>{product._id.slice(0, 5)}...</td>
+                
+                <Link href={`/product/${product._id}`} passHref>
+                <td className={styles.id}>{product._id.slice(0, 5)}...</td>
+                </Link>
+                
                 <td>{product.title}</td>
-                <td>Rs{product.prices[0]}</td>
+                <td>Rs {product.prices[0]}</td>
                 <td>
                   <button className={styles.button}>Edit</button>
                   <button
@@ -96,15 +103,18 @@ const Index = ({ orders, products }) => {
           {orderList.map((order) => (
             <tbody key={order._id}>
               <tr className={styles.trTitle}>
-                <td>{order._id.slice(0, 5)}...</td>
+                <Link href={`/orders/${order._id}`} passHref>
+                <td className={styles.id}>{order._id.slice(0, 5)}...</td>
+                </Link>
                 <td>{order.customer}</td>
-                <td>Rs{order.total}</td>
+                <td>Rs {order.total}</td>
                 <td>
                   {order.method === 0 ? <span>cash</span> : <span>paid</span>}
                 </td>
                 <td>{status[order.status]}</td>
+
                 <td>
-                  <button onClick={() => handleStatus(order._id)}>
+                  <button disabled={nextstatus =(order.status==2)?true:false} onClick={() => handleStatus(order._id)}>
                     Next Stage
                   </button>
                 </td>
@@ -119,7 +129,7 @@ const Index = ({ orders, products }) => {
 
 export const getServerSideProps = async (ctx) => {
   const myCookie = ctx.req?.cookies || "";
-
+  // console.log(ctx)
   if (myCookie.token !== process.env.TOKEN) {
     return {
       redirect: {
